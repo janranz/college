@@ -1,3 +1,3 @@
 # college  
 ***
-Private repo for class work. Test Keys thrice. Now home
+Private repo for class work. Test Keys thrice. Now silent
