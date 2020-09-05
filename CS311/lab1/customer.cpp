@@ -30,3 +30,19 @@ void Customer::helpCall(int n, int c, float b)
                 break;
     }
 }
+string Customer::getName()
+{
+    return name;
+}
+int Customer::getId()
+{
+    return id;
+}
+int Customer::getAge()
+{
+    return age;
+}
+float Customer::getBal()
+{
+    return bal;
+}
