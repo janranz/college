@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    <script src="toDo.js"></script>
+    <link rel="stylesheet" href="styles.css">
+
+    <title>simple todo list demonstration</title>
+</head>
+<body>
+    <h1>Table of your class schedule</h1>
+    <div>
+        <form action ="javascript:void(0)">
+            <label for="clID">Class ID:</label>
+            <input type="text" id="cID" name="cID" required><br><br>
+            <label for="cTitle">Class Title:</label>
+            <input type="text" id="cTitle" name="cTitle" required><br><br>
+            <label for="sTime">Start Time:</label>
+            <input type="time" id="sTime" name="sTime"
+                min="07:00" max="19:00" required><br><br>
+            <label for="fTime">Finish Time:</label>
+            <input type="time" id="fTime" name="fTime"
+                min="07:00" max="19:00" required><br><br>
+            <label for="cRoom">Class Room:</label>
+            <input type="text" id="cRoom" name="cRoom" required><br><br><br>
+
+            
+                        <!-- Is lab? open for lab time -->
+
+            <label for="labCheck"><input type="checkbox" id="labCheck" name="labCheck">Does this class have a lab?
+            </label><br><br>
+            <div id="labSec" >
+                <label for="lsTime">Lab Start Time:</label>
+                <input type="time" id="lsTime" name="lsTime"
+                    min="07:00" max="19:00"><br><br>
+                <label for="lfTime">Lab Finish Time:</label>
+                <input type="time" id="lfTime" name="lfTime"
+                    min="07:00" max="19:00"><br><br>
+                <label for="lRoom">Lab Room:</label>
+                <input type="text" id="lRoom" name="lRoom"><br><br>
+            </div>
+            <input type="submit" value="Submit">
+            <input type="button" value="clear form">
+            <input type="button" value="Display Entries">
+
+        </form>
+    </div>
+    <div>
+        
+    </div>
+</body>
+</html>
