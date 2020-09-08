@@ -4,18 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script
-    src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
-    </script>
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+  
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
     <script src="toDo.js"></script>
     <link rel="stylesheet" href="styles.css">
 
     <title>simple todo list demonstration</title>
 </head>
 <body>
-    <h1>Table of your class schedule</h1>
-    <div>
-        <form action ="javascript:void(0)">
-            <label for="clID">Class ID:</label>
+    <h1>Table of your class schedule.</h1>
+    <h6>Without days of the week and styles!</h6>
+    <div id = "topDiv">
+        <form action ="javascript:void(0)" class="schedForm">
+            <label for="cID">Class ID:</label>
             <input type="text" id="cID" name="cID" required><br><br>
             <label for="cTitle">Class Title:</label>
             <input type="text" id="cTitle" name="cTitle" required><br><br>
@@ -33,24 +36,44 @@
 
             <label for="labCheck"><input type="checkbox" id="labCheck" name="labCheck">Does this class have a lab?
             </label><br><br>
-            <div id="labSec" >
+            <div id="labSec">
                 <label for="lsTime">Lab Start Time:</label>
                 <input type="time" id="lsTime" name="lsTime"
-                    min="07:00" max="19:00"><br><br>
+                    min="07:00" max="19:00" required><br><br>
                 <label for="lfTime">Lab Finish Time:</label>
                 <input type="time" id="lfTime" name="lfTime"
-                    min="07:00" max="19:00"><br><br>
+                    min="07:00" max="19:00" required><br><br>
                 <label for="lRoom">Lab Room:</label>
-                <input type="text" id="lRoom" name="lRoom"><br><br>
+                <input type="text" id="lRoom" name="lRoom" required><br><br>
             </div>
-            <input type="submit" value="Submit">
-            <input type="button" value="clear form">
-            <input type="button" value="Display Entries">
+            <input type="submit" value="Add Class">
+            <input type="reset" value="clear form">
+            <input type="button" id="clearStore" value="Delete All Data">
+        </form><br>
+        <button type="button" id="remClassByID">Delete Class by ID</button>
+        <input type="text" id="remID" name="remID">
+        <span id="delNotif">&nbsp</span>
 
-        </form>
     </div>
-    <div>
-        
+    <div id="schedSec">
+        <h3>Your class Schedule</h3>
+        <table id="schedTab">
+            <thead>
+                <tr>
+                    <th>Class ID</th>
+                    <th>Class Title</th>
+                    <th>Start Time</th>
+                    <th>Finish Time</th>
+                    <th>Class Room</th>
+                    <th>Is Lab</th>
+                    <th>Lab Start</th>
+                    <th>Lab Finish</th>
+                    <th>Lab Room</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
     </div>
 </body>
 </html>

@@ -1,4 +1,8 @@
-form {
+#topDiv {
     padding: 2em;
     border: 2px solid purple;
+    width: 300px;
+}
+#labSec {
+    display: none;
 }
