@@ -66,10 +66,12 @@ void Menu::addStudent()
 {
     cout << "\nAdd Student Success!\n" << endl;
     bool addStop = false;
-    bool numFound;
+    bool badFound;
+
+    // ADD name / instantiate
     while(!addStop)
     {
-        numFound = false;
+        badFound = false;
         cout << "Please enter student name: ";
         getline(cin,userBuffer);
         if(userBuffer.empty())
@@ -90,20 +92,65 @@ void Menu::addStudent()
             if(!isalpha(userBuffer[i]))
             {
                 cout << "\nNumeric value detected!" << endl;
-                numFound = true;
+                badFound = true;
                 i = 0;
                 break;
             }
             i++;
         }
-        if(numFound)
+        if(badFound)
         {
-            cout <<"\nIn Numfound" << endl;
             continue;
         }
         cout << "\n\nName entered is: " << userBuffer << endl;
-        break;
+        
+        // instantiate Student obj
+        _vf.push_back(new Student(userBuffer));
+        cout << "size of _vf is now: "<< _vf.size() << endl;
+        addStop = true;
     }
+    addStop = false;
+    //Set ID
+    while(!addStop)
+    {
+        badFound = false;
+        cout << "Please enter student ID: ";
+        getline(cin,userBuffer);
+        if(userBuffer.empty())
+        {
+            cout << "\nEmpty input detected" << endl;
+            continue;
+        } else if(isspace(userBuffer.at(0)))
+        {
+            cout << "\nWhite space detected" << endl;
+            continue;
+        }
+        int i = 0;
+        while(userBuffer[i])
+        {
+            if(isalpha(userBuffer[i]))
+            {
+                cout << "\nNon-Numeric value detected!" << endl;
+                badFound = true;
+                i = 0;
+                break;
+            }
+            i++;
+        }
+        if(badFound) {continue;}
+
+        cout <<"\n\nID Number entered: " << userBuffer << endl;
+        i = 0;
+        badFound = false;
+        // Figure out some way of comparing IDs here
+        while(_vf[i])
+        {
+            if(_vf[i].)
+        }
+        _vf[0]->setID(userBuffer);
+        addStop = true;
+    }
+
 }
 void Menu::removeStudent()
 {
