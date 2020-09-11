@@ -8,6 +8,6 @@ int main()
     Menu* interact = new Menu(vf);
 
     interact->showMenu();
-
+    delete interact;
     return 0;
 }

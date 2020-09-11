@@ -18,6 +18,7 @@ class Menu
         bool yayNay = false; // general I/O
         int selector = 0; // switch-case
         string userBuffer;
+        int userToInt = 0;
         ofstream dump;
         vector<Student*>_vf;
         string menText = "\n\nDatabase Main Menu:\n\n1. Add New Student\n2.Remove Student\n3.Search Student Record\n4.List All Students\n5.Save Student Records to File\n6. Exit\n\nEnter Choice: ";
