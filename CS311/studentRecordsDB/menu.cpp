@@ -1,4 +1,5 @@
 #include "menu.hpp"
+#include "binSearch.hpp"
 
 Menu::Menu(vector<Student*>&vf)
 {
@@ -12,6 +13,7 @@ Menu::~Menu()
         delete ptr;
     _vf.clear();
 }
+
 void Menu::showMenu()
 {
     bool quitter = false;
@@ -151,11 +153,23 @@ void Menu::addStudent()
         if(_vf.size() == 1)
         {
             _vf[DEX]->setID(stoi(userBuffer));
+            
             cout << "\n\n ID number entered: " << _vf[DEX]->getID() << endl;
             addStop = true;
             continue;
         }
-
+        sort(_vf.begin(),_vf.end(),sortByID);
+        if(binSearch(_vf,0,DEX,stoi(userBuffer)))
+        {
+            continue;
+        } else
+        {
+            _vf[DEX]->setID(stoi(userBuffer));
+            addStop = true;
+            continue;
+        }
+        
+        
 
 
     }
