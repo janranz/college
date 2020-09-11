@@ -1,25 +1,27 @@
 #pragma once
 #include <string>
+
+
 using std::string;
 
 class Student
 {
     private:
         string name;
-        string idNumber;
+        int idNumber;
         int age;
         int year;
         float gpa;
 
     public:
         Student(string n);
-        void setID(string id);
+        void setID(int id);
         void setAge(int n);
         void setYear(int n);
         void setGpa(float n);
 
         string getName();
-        string getID();
+        int getID();
         int getAge();
         int getYear();
         float getGpa();

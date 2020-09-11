@@ -32,6 +32,7 @@ void Menu::showMenu()
         catch(std::out_of_range& e)
         {
             cout << "Please select a valid entry.";
+            continue;
         }
         
         switch(userToInt)
@@ -106,10 +107,12 @@ void Menu::addStudent()
         
         // instantiate Student obj
         _vf.push_back(new Student(userBuffer));
+        DEX = _vf.size() - 1;
         cout << "size of _vf is now: "<< _vf.size() << endl;
         addStop = true;
     }
     addStop = false;
+
     //Set ID
     while(!addStop)
     {
@@ -120,15 +123,17 @@ void Menu::addStudent()
         {
             cout << "\nEmpty input detected" << endl;
             continue;
-        } else if(isspace(userBuffer.at(0)))
-        {
-            cout << "\nWhite space detected" << endl;
-            continue;
+        // } else if(isspace(userBuffer.at(0)))
+        // {
+        //     cout << "\nWhite space detected" << endl;
+        //     continue;
+        // }
         }
         int i = 0;
         while(userBuffer[i])
         {
-            if(isalpha(userBuffer[i]))
+            // if(isalpha(userBuffer[i]) || isspace(userBuffer[i]))
+            if(!isdigit(userBuffer[i]))
             {
                 cout << "\nNon-Numeric value detected!" << endl;
                 badFound = true;
@@ -143,15 +148,19 @@ void Menu::addStudent()
         i = 0;
         badFound = false;
         // Figure out some way of comparing IDs here
-        while(_vf[i])
+        if(_vf.size() == 1)
         {
-            if(_vf[i].)
+            _vf[DEX]->setID(stoi(userBuffer));
+            cout << "\n\n ID number entered: " << _vf[DEX]->getID() << endl;
+            addStop = true;
+            continue;
         }
-        _vf[0]->setID(userBuffer);
-        addStop = true;
-    }
 
+
+
+    }
 }
+
 void Menu::removeStudent()
 {
     cout << "\nRemove Student Success!\n" << endl;

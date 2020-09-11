@@ -4,7 +4,7 @@ Student::Student(string n)
 {
     name = n;
 }
-void Student::setID(string n)
+void Student::setID(int n)
 {
     idNumber = n;
 }
@@ -24,7 +24,7 @@ string Student::getName()
 {
     return name;
 }
-string Student::getID()
+int Student::getID()
 {
     return idNumber;
 }
