@@ -1,14 +1,14 @@
 #include "menu.hpp"
 #include "binSearch.hpp"
 
+
+
 Menu::Menu(vector<Student*>&vf)
 {
     _vf = vf;
-    cout << "Size of: " << _vf.size() << endl;
 }
 Menu::~Menu()
 {
-    cout << "Destructing!" << endl;
     for(Student* ptr : _vf)
         delete ptr;
     _vf.clear();
@@ -21,7 +21,6 @@ void Menu::showMenu()
     {
         cout << menText;
         getline(cin, userBuffer);
-
         try
         {
             userToInt = stoi(userBuffer);
@@ -67,15 +66,13 @@ void Menu::showMenu()
 }
 void Menu::addStudent()
 {
-    cout << "\nAdd Student Success!\n" << endl;
     bool addStop = false;
     bool badFound;
-
     // ADD name / instantiate
     while(!addStop)
     {
         badFound = false;
-        cout << "Please enter student name: ";
+        cout << "\nPlease enter student name: ";
         getline(cin,userBuffer);
         if(userBuffer.empty())
         {
@@ -88,11 +85,10 @@ void Menu::addStudent()
             continue;
         }
         int i = 0;
-        cout << "userBuffer size is: " << userBuffer.size() << endl;
         while(userBuffer[i])
         {
             // disallow non alphabetics
-            if(!isalpha(userBuffer[i]))
+            if(isdigit(userBuffer[i]))
             {
                 cout << "\nNumeric value detected!" << endl;
                 badFound = true;
@@ -105,16 +101,12 @@ void Menu::addStudent()
         {
             continue;
         }
-        cout << "\n\nName entered is: " << userBuffer << endl;
-        
         // instantiate Student obj
         _vf.push_back(new Student(userBuffer));
         DEX = _vf.size() - 1;
-        cout << "size of _vf is now: "<< _vf.size() << endl;
         addStop = true;
     }
     addStop = false;
-
     //Set ID
     while(!addStop)
     {
@@ -125,16 +117,10 @@ void Menu::addStudent()
         {
             cout << "\nEmpty input detected" << endl;
             continue;
-        // } else if(isspace(userBuffer.at(0)))
-        // {
-        //     cout << "\nWhite space detected" << endl;
-        //     continue;
-        // }
         }
         int i = 0;
         while(userBuffer[i])
         {
-            // if(isalpha(userBuffer[i]) || isspace(userBuffer[i]))
             if(!isdigit(userBuffer[i]))
             {
                 cout << "\nNon-Numeric value detected!" << endl;
@@ -146,21 +132,18 @@ void Menu::addStudent()
         }
         if(badFound) {continue;}
 
-        cout <<"\n\nID Number entered: " << userBuffer << endl;
         i = 0;
         badFound = false;
-        // Figure out some way of comparing IDs here
+        
         if(_vf.size() == 1)
         {
             _vf[DEX]->setID(stoi(userBuffer));
-            
-            cout << "\n\n ID number entered: " << _vf[DEX]->getID() << endl;
             addStop = true;
             continue;
         }
         sort(_vf.begin(),_vf.end(),sortByID);
         if(binSearch(_vf,0,DEX,stoi(userBuffer)))
-        {
+        { //Duplicate found
             continue;
         } else
         {
@@ -168,26 +151,227 @@ void Menu::addStudent()
             addStop = true;
             continue;
         }
-        
-        
-
-
     }
+    addStop = false;
+    //Set Age
+    while(!addStop)
+    {
+        badFound = false;
+        cout << "Please enter student Age: ";
+        getline(cin,userBuffer);
+        if(userBuffer.empty())
+        {
+            cout << "\nEmpty input detected" << endl;
+            continue;
+        }
+        int i = 0;
+        while(userBuffer[i])
+        {
+            if(!isdigit(userBuffer[i]))
+            {
+                cout << "\nNon-Numeric value detected!" << endl;
+                badFound = true;
+                i = 0;
+                break;
+            }
+            i++;
+        }
+        if(badFound) {continue;}
+        i = 0;
+        badFound = false;
+        _vf[DEX]->setAge(stoi(userBuffer));
+        addStop = true;
+    }
+    addStop = false;
+
+    //Set Year
+    while(!addStop)
+    {
+        badFound = false;
+        cout << "Please enter student Year(1-4): ";
+        getline(cin,userBuffer);
+        if(userBuffer.empty())
+        {
+            cout << "\nEmpty input detected" << endl;
+            continue;
+        }
+        int i = 0;
+        while(userBuffer[i])
+        {
+            if(!isdigit(userBuffer[i]))
+            {
+                cout << "\nNon-Numeric value detected!" << endl;
+                badFound = true;
+                i = 0;
+                break;
+            }
+            i++;
+        }
+        if(badFound) {continue;}
+        i = 0;
+        badFound = false;
+        _vf[DEX]->setYear(stoi(userBuffer));
+        addStop = true;
+    } 
+    addStop = false;
+    //Set Gpa
+    while(!addStop)
+    {
+        badFound = false;
+        cout << "Please enter student GPA: ";
+        getline(cin,userBuffer);
+        if(userBuffer.empty())
+        {
+            cout << "\nEmpty input detected" << endl;
+            continue;
+        }
+        if(userBuffer.find_first_not_of("1234567890.-") != string::npos)
+        {
+            cout << "\nInvalid entry!" << endl;
+            continue;
+        } else
+        {
+            _vf[DEX]->setGpa(stof(userBuffer));
+            addStop = true;
+        }
+    }
+    addStop = false;
 }
 
 void Menu::removeStudent()
 {
-    cout << "\nRemove Student Success!\n" << endl;
+    bool remStop = false;
+    bool badFound;
+    while(!remStop)
+    {
+        badFound = false;
+        cout << "\nPlease enter student ID ('q' to quit): ";
+        getline(cin,userBuffer);
+        if(userBuffer.empty())
+        {
+            cout << "\nEmpty input detected" << endl;
+            continue;
+        } else if(isspace(userBuffer.at(0))) // redundant
+        {
+            cout << "\nWhite space detected!" << endl;
+            continue;
+        }
+        if(userBuffer[0] == 'q')
+        {
+            cout << "\nReturning to main menu!" << endl;
+            remStop = true;
+            continue;
+        }
+        int i = 0;
+        while(userBuffer[i])
+        {
+            if(!isdigit(userBuffer[i]))
+            {
+                cout << "\nInvalid input. Please try again" << endl;
+                badFound = true;
+                break;   
+            }
+            i++;
+        }
+        if(badFound){continue;}
+        int success = binRemove(_vf,0,DEX,stoi(userBuffer));
+        if(success)
+        {
+            sort(_vf.begin(),_vf.end(),sortByID);
+            DEX = _vf.size() - 1;
+            remStop = true;
+        }  
+    }
 }
 void Menu::searchStudent()
 {
-    cout << "\nSearch Student Success!\n" << endl;
+    bool searchStop = false;
+    bool badFound;
+    while(!searchStop)
+    {
+        badFound = false;
+        cout << "\nPlease enter a student ID to remove ('q' to quit): ";
+        getline(cin,userBuffer);
+        if(userBuffer.empty() || isspace(userBuffer.at(0)))
+        {
+            cout << "\nInvalid entry" << endl;
+            continue;
+        }
+        if(userBuffer[0] =='q')
+        {
+            cout << "\nReturning to main menu!" << endl;
+            searchStop = true;
+            continue;
+        }
+        int i = 0;
+        while(userBuffer[i])
+        {
+            if(!isdigit(userBuffer[i]))
+            {
+                cout << "\nInvalid entry" << endl;
+                badFound = true;
+                break;
+            }
+            i++;
+        }
+        if(badFound){continue;}
+        int searching = binSearch(_vf,0,DEX,stoi(userBuffer));
+        if(!searching)
+        {
+            cout <<"\nID does not exist!" << endl;
+        }
+        searchStop = true;
+    }
 }
 void Menu::listStudent()
 {
-    cout << "\nList Student Success!\n" << endl;
+    if(DEX < 0)
+    {
+        cout <<"\nPlease add students to database before using this function\n";
+        return;
+    }
+    sort(_vf.begin(),_vf.end(),sortByID);
+    for(int i = 0; i < DEX + 1; i++)
+    {
+        cout <<"Student name: " <<_vf[i]->getName()<< endl;
+        cout <<"Student ID  : " <<_vf[i]->getID()<< endl;
+        cout <<"Student Age : " <<_vf[i]->getAge()<< endl;
+        cout <<"Student Year: " <<_vf[i]->getYear()<< endl;
+        cout << fixed << setprecision(2);
+        cout <<"Student GPA : " <<_vf[i]->getGpa()<< endl;
+        cout << endl;
+    }
 }
 void Menu::dumpStudent()
 {
-    cout << "\nDump Student Success!\n" << endl;
+    bool dumpStop = false;
+    if(DEX <0)
+    {
+        cout <<"\nPlease add students to database before using this function\n";
+        return;
+    }
+
+    string fileName;
+    cout << "\nPlease enter a file name to write out to: " << endl;
+
+    getline(cin,userBuffer);
+    if(userBuffer.empty())
+    {
+        fileName = "studentDB.txt";
+    }
+    fileName = userBuffer;
+    fileName.append(".txt");
+    dump.open(fileName);
+    sort(_vf.begin(),_vf.end(),sortByID);
+    for(int i = 0; i < DEX + 1; i++)
+    {
+        dump <<"Student name: " <<_vf[i]->getName()<< endl;
+        dump <<"Student ID  : " <<_vf[i]->getID()<< endl;
+        dump <<"Student Age : " <<_vf[i]->getAge()<< endl;
+        dump <<"Student Year: " <<_vf[i]->getYear()<< endl;
+        dump << fixed << setprecision(2);
+        dump <<"Student GPA : " <<_vf[i]->getGpa()<< endl;
+        dump << endl;
+    }
+    dump.close();
 }

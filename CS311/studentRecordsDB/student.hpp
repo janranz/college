@@ -15,7 +15,7 @@ class Student
 
     public:
         Student(string n);
-        void setID(int id);
+        void setID(int n);
         void setAge(int n);
         void setYear(int n);
         void setGpa(float n);
