@@ -12,11 +12,12 @@ class Snow
         float years[3];
 
     public:
+        Snow();
         void setLocale(string);
         void setZip(int);
         void setYears(int,float);
 
         string getLocale();
         int getZip();
-        float* getYears();
+        float getYears(int);
 };

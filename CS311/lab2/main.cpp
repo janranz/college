@@ -1,8 +1,8 @@
-#include<iostream>
 #include<fstream>
 #include"splitter.hpp"
 #include"snowFall.hpp"
 #include"hash.hpp"
+#include"menu.hpp"
 
 
 using namespace std;
@@ -37,10 +37,14 @@ int main(int argc, char** argv)
     Snow obj;
     Hashed DB;
     int i = -1;
+    int debugCount = 0;
     for(vector<string>::iterator t = parsed.begin(); t != (parsed.end()); t++)
     {
-        if(obj.getLocale() != "")
+
+        if(obj.getZip() && i == -1)
         {
+            debugCount++;
+            // cout << "(Debug) attempting key: "<< obj.getZip() << endl;
             DB.setData(obj);
         }
         i++;
@@ -60,13 +64,14 @@ int main(int argc, char** argv)
                 continue;
             case 4:// yearThree
                 obj.setYears(i,stof(*t));
-
                 i = -1;
                 continue;
             default:
                 continue;//nothing
         }
     }
+    Menu snowMen;
+    snowMen.Start(DB);
 
 
     return 0;
