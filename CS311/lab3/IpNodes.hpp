@@ -1,11 +1,9 @@
 #pragma once
 #include<string>
 #include<iostream>
+#include<fstream>
 
-using std::string;
-using std::cout;
-using std::cin;
-using std::endl;
+using namespace std;
 
 class IpNodes
 {
@@ -23,4 +21,5 @@ class IpNodes
         void updateCount();
 };
 void addNode(IpNodes**,string);
-void searchNode(IpNodes*,string,int);
+bool searchNode(int,IpNodes*,string option = "");
+void mainMenu(IpNodes*);

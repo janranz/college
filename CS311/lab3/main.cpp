@@ -30,14 +30,19 @@ int main(int argc, char** argv)
     datF.close();
 
     IpNodes* head = nullptr;
-
+    bool matchFound = false;
 
     for(vector<string>::iterator t = parsed.begin(); t != (parsed.end()); t++)
     {
-        addNode(&head, *t);
-        searchNode(head, *t, 1); //Modes: (1) - Tally mode | (2) - Query mode
+        if(!matchFound)
+        {
+            addNode(&head,*t);
+        }
+       matchFound = searchNode(1, head, *t); //Modes: (1) - Tally mode
+
     }
-    searchNode(head,"",2);
+    searchNode(2, head);
+    mainMenu(head);
 
 
     return 0;
