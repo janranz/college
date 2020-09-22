@@ -10,11 +10,11 @@ using namespace std;
 class Menu
 {
     private:
-    string userBuffer;
-    string mainMenu;
-    int userToInt;
+        string userBuffer;
+        string mainMenu;
+        int userToInt;
 
     public:
-    Menu();
-    void Start(Hashed&);
+        Menu();
+        void Start(Hashed&);
 };

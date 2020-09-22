@@ -8,7 +8,6 @@ Menu::Menu()
 void Menu::Start(Hashed& DB)
 {
     bool quitter = false;
-
     while(!quitter)
     {
         quitter = false;
@@ -38,9 +37,6 @@ void Menu::Start(Hashed& DB)
             cout << "\nInput out of bounds! Please try again.";
             continue;
         }
-        int tryAgain = DB.dumpData(userToInt);
-        if(tryAgain){continue;}
-        quitter = true;
+        DB.dumpData(userToInt);
     }
-
 }

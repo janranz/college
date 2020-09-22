@@ -1,8 +1,8 @@
 #pragma once
 #include<string>
 #include <iomanip>
-using std::string;
 
+using std::string;
 
 class Snow
 {
@@ -16,7 +16,6 @@ class Snow
         void setLocale(string);
         void setZip(int);
         void setYears(int,float);
-
         string getLocale();
         int getZip();
         float getYears(int);

@@ -1,7 +1,5 @@
 #include"hash.hpp"
 
-
-
 void Hashed::generateKey(int z)
 {
     key = z % SIZE;
@@ -14,13 +12,12 @@ void Hashed::generateKey(int z)
         i++;
         if(i > 1)
         {
-            offset = i;
+            offset = i - 1;
         }
     }
     if(offset > 0)
     {
         keyOffsets.insert(pair<int,int>(z,offset));
-        // keyOffsets[z] = offset;
     }
 }
 void Hashed::setData(Snow obj)
@@ -33,7 +30,31 @@ void Hashed::setData(Snow obj)
         dataList[key].setYears(i+2,obj.getYears(i));
     }
 }
-int Hashed::dumpData(int userZip)
+
+void Hashed::findTotals(int m)
+{
+    localMax = 0;
+    for(int i = 0; i < YEARS; i++)
+    {
+        localMax += dataList[m].getYears(i);
+    }
+    localAvg = localMax / YEARS;
+}
+
+void Hashed::prettyOutput(int key)
+{
+    cout << "\n\t---RESULTS---\n" << endl;
+    cout << "Location: " << dataList[key].getLocale() << endl;
+    cout << "Zip Code: " << dataList[key].getZip() << endl;
+    for(int i = 0; i < YEARS; i++)
+    {
+        cout << "Year " << i+1 << ":\t" << dataList[key].getYears(i) << endl;
+    }
+    cout << "Average Snow Fall: " << localAvg << endl;
+    cout << "Maximum Snow Fall: " << localMax << endl;
+}
+
+void Hashed::dumpData(int userZip)
 {
     //Check if userZip requires offset
     auto check = keyOffsets.find(userZip);
@@ -49,18 +70,13 @@ int Hashed::dumpData(int userZip)
     }
     //Check if userZip even exists
     key = (userZip + offset) % SIZE;
+    cout << "\n\n\t(DEBUG) Zip at offset: " << key << endl;
     if(dataList[key].getZip() == 0)
     {
         //bad zip
-        cout << "Baddie!" << endl;
-        return 1;
+        cout << "ZIP Not found!" << endl;
+        return;
     }
-    cout <<"\nSuccessful dump for: " << userZip << endl;
-    cout <<"\nLocation: " << dataList[key].getLocale() << endl;
-    cout <<"\nZip: " << dataList[key].getZip() << endl;
-    cout <<"\nYear 1: " << dataList[key].getYears(0) << endl;
-    cout <<"\nYear 2: " << dataList[key].getYears(1) << endl;
-    cout <<"\nYear 3: " << dataList[key].getYears(2) << endl;
-
-    return 0;
+    findTotals(key);
+    prettyOutput(key);
 }
