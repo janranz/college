@@ -9,7 +9,7 @@ class IpNodes
 {
     private:
         string ipAddress; //key
-        int occurs = 0;
+        int occurs = 1; //init to 1 due to firstGo exception
         IpNodes* next = nullptr;
 
     public:
@@ -21,5 +21,5 @@ class IpNodes
         void updateCount();
 };
 void addNode(IpNodes**,string);
-bool searchNode(int,IpNodes*,string option = "");
-void mainMenu(IpNodes*);
+void searchNode(int,IpNodes**,string option = "");
+void mainMenu(IpNodes**);

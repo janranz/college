@@ -30,7 +30,7 @@ int IpNodes::getCount()
     return occurs;
 }
 
-void mainMenu(IpNodes* h)
+void mainMenu(IpNodes**h)
 {
     string userBuffer;
     bool quitter = false;
@@ -46,9 +46,7 @@ void mainMenu(IpNodes* h)
         }
     searchNode(3,h,userBuffer);
     }
-
     cout << "\nExiting..." << endl;
-
 }
 
 void addNode(IpNodes** h, string address)
@@ -59,34 +57,39 @@ void addNode(IpNodes** h, string address)
     *h = newIP;
 }
 
-bool searchNode(int mode, IpNodes* h, string address)
+void searchNode(int mode,IpNodes** h, string address)
 {
-    //Modes: (1) - Tally mode | (2) - Dump mode | (3) Query Mode
-
+    //Modes: (1) - Add/Tally mode | (2) - Dump mode | (3) Query Mode
     switch(mode)
     {
         case 1:
         {
-            IpNodes* curr = h;
+            IpNodes* curr = *h;
             string currentIP;
-            bool matchFound = false;
+            static bool firstGo = true;
+
+            if(firstGo)
+            {
+                addNode(h, address);
+                firstGo = false;
+                return;
+            }
             while(curr != nullptr)
             {
                 currentIP = curr->getIP();
                 if(currentIP == address)
                 {
                     curr->updateCount();
-                    matchFound = true;
+                    return;
                 }
                 curr = curr->getNext();
             }
-            cout <<"\nReturning match found: " << matchFound << endl;
-            return matchFound;
+            addNode(h,address);
+            return;
         }
         case 2:
         {
-            // cout << "\n\n---IP Address\t\tOccurred---\n" << endl;
-            IpNodes* curr = h;
+            IpNodes* curr = *h;
             ofstream dumpDat;
             dumpDat.open("RHIPS-log.dat");
             cout << "\nGenerating dump file...\n" << endl;
@@ -97,12 +100,11 @@ bool searchNode(int mode, IpNodes* h, string address)
                 curr = curr->getNext();
             }
             dumpDat.close();
-            return true;
+            return;
         }
         case 3:
         {
-            IpNodes* curr = h;
-            bool noDice = true;
+            IpNodes* curr = *h;
             cout << "\nAttempting to search for: " << address << endl;
             while(curr != nullptr)
             {
@@ -113,19 +115,15 @@ bool searchNode(int mode, IpNodes* h, string address)
                          << curr->getCount() << " time(s)." << endl;
                     cout << "(Node: " << curr << ")" << endl;
                     cout << "\nReturning..." << endl;
-                    noDice = false;
-                    return true;
+                    return; // oops
                 }
                 curr = curr->getNext();
             }
-            if(noDice)
-            {
-                cout << "\n---No match found---" << endl;
-                cout << "Returning..." << endl;
-            }
-            return true;
+            cout << "\n---No match found---" << endl;
+            cout << "Returning..." << endl;
+            return;
         }
         default:
-            return false; // nothing
+            return; // nothing
     }
 }
