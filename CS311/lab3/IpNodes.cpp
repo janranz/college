@@ -41,6 +41,8 @@ void mainMenu(IpNodes**h)
         getline(cin,userBuffer);
         if(userBuffer =="q" || userBuffer == "Q")
         {
+            //De-alloc routine
+            searchNode(4,h);
             quitter = true;
             continue;
         }
@@ -122,6 +124,20 @@ void searchNode(int mode,IpNodes** h, string address)
             cout << "\n---No match found---" << endl;
             cout << "Returning..." << endl;
             return;
+        }
+        case 4:
+        {
+            IpNodes* curr = *h;
+            IpNodes* next;
+
+            while(curr != nullptr)
+            {
+                next = curr->getNext();
+                delete curr;
+                curr = nullptr;
+                curr = next;
+            }
+            *h = nullptr;
         }
         default:
             return; // nothing
